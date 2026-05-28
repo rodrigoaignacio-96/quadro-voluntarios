@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils/cn";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface CardProps extends React.HTMLAttributes<HTMLElement> {
   hover?: boolean;
   glow?:  boolean;
   as?:    "div" | "li" | "article";
@@ -22,7 +22,7 @@ export function Card({
         glow  && "shadow-glow-sm",
         className
       )}
-      {...props}
+      {...props as React.HTMLAttributes<HTMLElement>}
     >
       {children}
     </Tag>
