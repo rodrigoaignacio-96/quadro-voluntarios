@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────
+   VARIÁVEIS DO SISTEMA
+───────────────────────────────────────── */
+:root {
+  --font-display: "DM Serif Display", serif;
+  --font-body:    "Geist", sans-serif;
+  --font-mono:    "Geist Mono", monospace;
+
+  /* Sidebar */
+  --sidebar-width:          240px;
+  --sidebar-collapsed-width: 64px;
+
+  /* Transição padrão */
+  --transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─────────────────────────────────────────
+   RESET E BASE
+───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: #0a0a0f;
+  color: #e2e2e8;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar       { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a2a45; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a60; }
+
+/* ─────────────────────────────────────────
+   COMPONENTES UTILITÁRIOS
+───────────────────────────────────────── */
+@layer components {
+  /* Card base */
+  .card {
+    @apply bg-surface-100 border border-surface-400/50 rounded-2xl;
+  }
+
+  /* Input base */
+  .input-base {
+    @apply w-full bg-surface-200 border border-surface-400
+           rounded-xl px-4 py-2.5 text-sm text-white
+           placeholder:text-white/30 outline-none
+           focus:border-brand-500/60 focus:ring-2 focus:ring-brand-500/10
+           transition-all duration-200;
+  }
+
+  /* Botão primário */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-brand-500 hover:bg-brand-400 active:bg-brand-600
+           text-surface-0 font-medium text-sm
+           px-4 py-2.5 rounded-xl
+           transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Botão ghost */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           text-white/60 hover:text-white hover:bg-surface-200
+           text-sm px-3 py-2 rounded-xl
+           transition-all duration-200;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1
+           text-xs font-medium px-2 py-0.5 rounded-full;
+  }
+
+  /* Divider */
+  .divider {
+    @apply border-t border-surface-400/50;
+  }
+
+  /* Glow hover effect em cards */
+  .card-hover {
+    @apply transition-all duration-300
+           hover:border-brand-500/30
+           hover:shadow-glow-sm;
+  }
+
+  /* Skeleton loader */
+  .skeleton {
+    @apply bg-surface-200 rounded-lg animate-pulse;
+  }
+
+  /* Texto muted */
+  .text-muted { @apply text-white/40; }
+  .text-soft  { @apply text-white/60; }
+}
+
+/* ─────────────────────────────────────────
+   ANIMAÇÕES DE PÁGINA
+───────────────────────────────────────── */
+.page-enter {
+  animation: pageEnter 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger para listas de cards */
+.stagger-item { opacity: 0; animation: pageEnter 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
+.stagger-item:nth-child(1) { animation-delay: 0.05s; }
+.stagger-item:nth-child(2) { animation-delay: 0.10s; }
+.stagger-item:nth-child(3) { animation-delay: 0.15s; }
+.stagger-item:nth-child(4) { animation-delay: 0.20s; }
+.stagger-item:nth-child(5) { animation-delay: 0.25s; }
+.stagger-item:nth-child(6) { animation-delay: 0.30s; }
+
+/* ─────────────────────────────────────────
+   RECHARTS — OVERRIDE DE ESTILOS
+───────────────────────────────────────── */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical   line {
+  stroke: rgba(255,255,255,0.04) !important;
+}
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: #14141f !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+}
